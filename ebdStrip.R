@@ -21,8 +21,10 @@ state <- 'IN-KL'
 ################################################################
 
 #Unzip and read eBird records
-unzip(paste('..\\data\\',ebd_file_name,'.zip',sep=''))
-ebd <- read.delim(paste(ebd_file_name,'.txt',sep=''), na.strings = c("NA", "", "null"), as.is=TRUE, quote="")
+ebd_zip <- paste0('./data/', ebd_file_name, '.zip')
+ebd_file <- paste0(ebd_file_name, '.txt')
+ebd <- read.delim(unz(ebd_zip, ebd_file), quote = "", as.is = TRUE,
+  na.strings = c("NA", "", "null"))
 
 #Add unique list identifier for removing duplicates
 ebd <- within (ebd, UNIQUE_SAMPLING_ID <-  ifelse(is.na(GROUP.IDENTIFIER),SAMPLING.EVENT.IDENTIFIER,GROUP.IDENTIFIER))
@@ -61,8 +63,10 @@ ebd_districts <- subset(ebd_districts, select = c("SUBNATIONAL2_CODE", "COUNTY")
 ebd_lists <- subset(ebd_lists, select = c("SUBNATIONAL1_CODE", "SUBNATIONAL2_CODE", "OBSERVATION.DATE", "DURATION.MINUTES", "LONGITUDE", "LATITUDE", "UNIQUE_SAMPLING_ID", "ALL.SPECIES.REPORTED"))
 
 #Unzip and open the shape file
-unzip(paste('..\\data\\',india_shape_file,'.zip',sep=''))
-indiamap <- rgdal::readOGR(paste(india_shape_file,'.shp', sep=''), india_shape_file)
+shp_zip <- paste0('./data/', india_shape_file, '.zip')
+shp_tmp <- tempfile()
+unzip(shp_zip, exdir = shp_tmp)
+indiamap <- readOGR(shp_tmp, india_shape_file)
 
 sp::coordinates(ebd_lists) <- ~LONGITUDE+LATITUDE
 
@@ -114,14 +118,12 @@ ebd_lists$FILTER[is.na(ebd_lists$FILTER)] <- 0
 # Bug. Why join has 2 more than actual lists
 
 # Write to RDS file with compression
-saveRDS(ebd_records,    '..\\data\\ebd_records.rds')
-saveRDS(ebd_species,    '..\\data\\ebd_species.rds')
-saveRDS(ebd_states,     '..\\data\\ebd_states.rds')
-saveRDS(ebd_districts,  '..\\data\\ebd_districts.rds')
-saveRDS(ebd_filters,    '..\\data\\ebd_filters.rds')
-saveRDS(ebd_lists,      '..\\data\\ebd_lists.rds')
+saveRDS(ebd_records,    './data/ebd_records.rds')
+saveRDS(ebd_species,    './data/ebd_species.rds')
+saveRDS(ebd_states,     './data/ebd_states.rds')
+saveRDS(ebd_districts,  './data/ebd_districts.rds')
+saveRDS(ebd_filters,    './data/ebd_filters.rds')
+saveRDS(ebd_lists,      './data/ebd_lists.rds')
 
 #Remove temp files
-unlink ('*.txt')
-unlink ('*.pdf')
-unlink (paste(india_shape_file,'.*',sep=''))
+unlink(shp_tmp, recursive = TRUE)
