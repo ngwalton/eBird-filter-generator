@@ -36,16 +36,16 @@ getLocationFilteredLists <- function (lists, state, filterRegion) {
   }
   print(paste("GeoFiltered", nrow(lists)))  
   
-  if(any (g_admin_filters$Filter.Name == filterRegion))  
-  { # Find out all matches for a filter name. It can be state or district codes
-    admin_filter_match <- grep (filterRegion, g_admin_filters$Filter.Name, fixed = TRUE)
-    # Bind the lists that match with the state or district code
-    lists <- rbind ( 
-                    lists [which(lists$STATE.CODE %in% g_admin_filters [admin_filter_match, ]$Code), ],
-                    lists [which(lists$COUNTY.CODE %in% g_admin_filters [admin_filter_match, ]$Code), ]
-                   )
-    
-  }
+  # if(any (g_admin_filters$Filter.Name == filterRegion))  
+  # { # Find out all matches for a filter name. It can be state or district codes
+  #   admin_filter_match <- grep (filterRegion, g_admin_filters$Filter.Name, fixed = TRUE)
+  #   # Bind the lists that match with the state or district code
+  #   lists <- rbind ( 
+  #                   lists [which(lists$STATE.CODE %in% g_admin_filters [admin_filter_match, ]$Code), ],
+  #                   lists [which(lists$COUNTY.CODE %in% g_admin_filters [admin_filter_match, ]$Code), ]
+  #                  )
+  #   
+  # }
   print(paste("Final Filtered", nrow(lists)))  
   return (lists)
 }
