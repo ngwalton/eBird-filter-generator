@@ -57,8 +57,8 @@ shinyUI <- fluidPage(
   sidebarPanel(
     width = 3,  
     
-    selectInput('filterRegion', 'Filter Region', choices = c("None",g_all_filters), selected = 'India--West Bengal--North'),
-    selectInput('state', 'State', choices = c("None",g_states$STATE), selected = 'West Bengal'),
+    selectInput('filterRegion', 'Filter Region', choices = c("None",g_all_filters), selected = 'None'),
+    selectInput('state', 'State', choices = c("None",g_states$STATE), selected = 'None'),
                             
     selectInput('fortnight', 'Period', c('Month', 'Fortnight')),
 
