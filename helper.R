@@ -155,9 +155,8 @@ generateFilter <- function(state='None', filterRegion, filterPercentile=90, dura
   # Add a fortnight field. There are 12 months a year, 24 fortnights. E.g. 5.5 is 11th fortnight in a year
   # E.g. 14th of September = 0.5 * int (14/30 + 0.5) = 0. 15th of February = 0.5 * int (15/30 + 0.5) = 0.5
 
-#  f_ebd_lists <- within (f_ebd_lists, Fortnight <-  as.numeric(format(as.Date(OBSERVATION.DATE),"%m")) +
-#                             fortnightly * 0.5 * as.integer(0.5 + as.numeric(format(as.Date(OBSERVATION.DATE),"%d"))/daysInMonth (as.integer(format(as.Date(OBSERVATION.DATE),"%m")))))
-  
+ f_ebd_lists <- within (f_ebd_lists, Fortnight <-  as.numeric(format(as.Date(OBSERVATION.DATE),"%m")) +
+                            fortnightly * 0.5 * as.integer(0.5 + as.numeric(format(as.Date(OBSERVATION.DATE),"%d"))/daysInMonth (as.integer(format(as.Date(OBSERVATION.DATE),"%m")))))
   
   f_ebd_lists <- within (f_ebd_lists, if (!fortnightly) Fortnight <- floor (Fortnight))
                          
