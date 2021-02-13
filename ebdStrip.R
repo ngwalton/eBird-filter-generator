@@ -45,7 +45,7 @@ ebd_species   <- ebd_records[!duplicated(ebd_records$TAXONOMIC.ORDER),]
 ebd_states    <- ebd_records[!duplicated(ebd_records$STATE.CODE),]
 
 #Create district list by removing duplicate district entries
-### ebd_districts is not used in the app -- remove at somepoint but keeping
+### ebd_districts is not used in the app -- remove at some point but keeping
 ### until removed from global.R
 ebd_districts <- ebd_records[!duplicated(ebd_records$COUNTY.CODE),]
 
@@ -103,7 +103,7 @@ for (filterindex in 1:nrow(indiamap@data))
   rgl_ebd_lists   <- ebd_lists
   rgl_ebd_lists$FILTER  <- 0;
   
-  # special subset using polygon india_selected
+  # spatial subset using polygon india_selected
   rgl_ebd_lists   <- rgl_ebd_lists[india_selected, ]
   
   # For all filtered lists, assign the filter_index
