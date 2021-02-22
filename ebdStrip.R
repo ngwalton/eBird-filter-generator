@@ -19,7 +19,7 @@ ebd_file_name <- 'ebd_US-WI_reevir1_201906_201906_relDec-2020'
 #Name of the India region shape file archive WITHOUT .zip
 # india_shape_file <- 'indiama-editedSQ'
 # state <- 'IN-KL'
-india_shape_file <- 'ebirdfiltersfinalfeb2017'
+india_shape_file <- 'ebirdfilters20170817'
 state <- 'US-WI'
 ################################################################
 
